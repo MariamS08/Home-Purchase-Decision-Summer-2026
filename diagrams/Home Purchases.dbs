@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Home Purchase Decison" database="LogicalDesign" id="77d0937a-23f3-488e-8bfb-75192a695218" >
+	<schema name="lgl" >
+		<table name="Dim_Date" prior="Dim_Dat" >
+			<column name="Date_id" prior="Date_key" type="DATE" mandatory="y" />
+			<column name="Full_date" type="DATE" />
+			<column name="Year" type="INT" />
+			<column name="Quarter" type="INT" />
+			<column name="Month" type="INT" />
+			<column name="Month_name" type="VARCHAR" length="10" />
+			<column name="Day_of_week" type="VARCHAR" length="10" />
+			<column name="Weekend" type="BOOLEAN" />
+			<index name="pk_Dim_Date" unique="PRIMARY_KEY" >
+				<column name="Date_id" />
+			</index>
+		</table>
+		<table name="Dim_Property" prior="Dim_Propert" >
+			<column name="Property_id" type="INT" mandatory="y" />
+			<column name="Property_name" type="VARCHAR" length="50" />
+			<column name="Bedrooms" prior="beds" type="DECIMAL" length="20" decimal="0" />
+			<column name="Full_baths" type="DECIMAL" length="5" decimal="5" />
+			<column name="Sqft" type="INT" />
+			<column name="Year_built" type="INT" />
+			<column name="Beds_category" type="VARCHAR" length="20" >
+				<comment><![CDATA[Such as how many beds are in the different rooms]]></comment>
+			</column>
+			<column name="Size_Category" type="VARCHAR" length="20" />
+			<index name="pk_Dim_Property" unique="PRIMARY_KEY" >
+				<column name="Property_id" />
+			</index>
+		</table>
+		<table name="Entity" />
+		<table name="Fact_Home_Purchases" prior="Fact_Home_Purchase" >
+			<column name="Purchases_ Id" prior="Purchases Id" type="BIGINT" mandatory="y" />
+			<column name="location_id" type="INT" mandatory="y" />
+			<column name="date_id" type="INT" mandatory="y" />
+			<column name="Property_id" type="INT" mandatory="y" />
+			<column name="Transaction_type" type="VARCHAR" length="30" />
+			<column name="MLS_status" type="VARCHAR" length="30" />
+			<column name="List_Price" type="DECIMAL" length="30" decimal="5" />
+			<column name="Sold_price" type="DECIMAL" length="20" decimal="5" />
+			<column name="Price_per_Sqft" type="DECIMAL" length="30" decimal="5" />
+			<column name="Days_on_MLS" type="INT" />
+			<index name="pk_Fact_Home_Purchases" unique="PRIMARY_KEY" >
+				<column name="Purchases_ Id" />
+			</index>
+			<fk name="fk_Fact_Home_Purchases_dim_loction" to_schema="lgl" to_table="dim_loction" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="location_id" pk="location_id" />
+			</fk>
+			<fk name="fk_Fact_Home_Purchases_Dim_Date" to_schema="lgl" to_table="Dim_Date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="date_id" pk="Date_id" />
+			</fk>
+			<fk name="fk_Fact_Home_Purchases_Dim_Property" to_schema="lgl" to_table="Dim_Property" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="Property_id" pk="Property_id" />
+			</fk>
+		</table>
+		<table name="dim" prior="di" />
+		<table name="dim_loction" prior="dim_locti" >
+			<column name="location_id" type="INT" mandatory="y" />
+			<column name="location_name" type="VARCHAR" length="50" />
+			<column name="county" type="VARCHAR" length="50" />
+			<column name="zip_code" type="VARCHAR" length="20" />
+			<column name="City" prior="city" type="VARCHAR" length="100" />
+			<column name="State" type="VARCHAR" length="50" />
+			<column name="Fips_code" type="VARCHAR" length="10" />
+			<column name="Latitude" type="DOUBLE" />
+			<column name="Longitude" type="DOUBLE" />
+			<index name="pk_dim_loction" unique="PRIMARY_KEY" >
+				<column name="location_id" />
+			</index>
+		</table>
+	</schema>
+	<diagram_group name="Default" id="2e7d24f1-fc57-4e28-a1ea-c06009e82949" >
+		<diagram name="Default Diagram" id="dcb84c1f-3b15-488f-8dfc-36a7d2aba5ee" show_relation="columns" >
+			<entity schema="lgl" name="Dim_Date" color="C1D8EE" x="817" y="190" />
+			<entity schema="lgl" name="Dim_Property" color="C1D8EE" x="513" y="551" />
+			<entity schema="lgl" name="Fact_Home_Purchases" color="C1D8EE" x="494" y="209" />
+			<entity schema="lgl" name="dim_loction" color="C1D8EE" x="209" y="209" />
+			<callout x="57" y="57" pointer="Round" >
+				<comment><![CDATA[- Create new entities by right-clicking the diagram. 
+- Double-click entity headers to edit.
+- Get a better understanding of the schema by creating multiple diagrams.
+- Convert the logical design to physical design and deploy it into the database.]]></comment>
+			</callout>
+		</diagram>
+	</diagram_group>
+</project>
