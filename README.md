@@ -3,9 +3,10 @@ This project will consist of the evaluation of thefactors affecting home purchas
 # Project Readme
 
 ## A. Problem Context
-Provide a brief description of the problem you're addressing. Include any background information necessary to understand the project.
+Our project is based on making home purchase decisions. It's a data warehouse to help users evaluate the key factors affecting home purchase decisions in New York State. As fellow new yorkers we all know how expensive it could be to live in NYC, either trying to rent or buying a dream home in the city. Finding that perfect home at an economic price with a low crime rate and not having to worry about daily living costs being expensive. 
+Where can you look for a home like that? 
+Well, we present to you our project and will show you the process of building it.The system combines housing listing and sales data with mandatory crime rate data and MIT Living Wage cost-of-living benchmarks to produce county-level dashboards and a predictive linear regression model in Power BI.
 
-*Problem description goes here.*
 
 ## B. Requirements
 
@@ -116,41 +117,28 @@ Sprint 3: ETL was developed, ingested, clean, and loaded in all the data and als
 
 Sprint 4: The Power Bi dashboard was built and the county filter. 
 
-  - 
-- Metadata Management
-  - Data Dictionary
-  - Mapping Sources and Target Systems
-  - List of all functions
-	- Function 1 
-	- Function 2
-	- Function 3
-- ETL Extract Load Transform
-- ELT Extract Transform Load
-- Tools 
+ Key ETL Functions: 
+extract() -since it reads for_sales.csv and sold.csv, and tags them with the  transaction_type. 
+Transform()-handles nulls, casts price/date, and regulates the county names, also obtains the price_per sqft and categories 
+build_star_schema()- makes the Fact_Home_Purchases with 3 dimensions and surrogate keys. 
+
+
 
 ## F. Visualization
-Provide details of the visualizations created for the project.
+This bar chart is comparing the median listed price(what sellers are asking for)  vs the median price(what buyers actually pay) in different counties of Nyc. It shows the sold price which as you can see is lower than the listed price, meaning buyers were able to negotiate a lower price than the seller originally asked for. The gap also shows how much power the buyers had and got bigger discounts, and smaller gaps means the homes got sold to the original price. 
 
-- Include charts, graphs, and any other visual representation of the data.
-  - ![Visualization Example](path_to_image)
-- Mention any libraries or tools used for visualization (e.g., Matplotlib, Power BI).
+<img width="1002" height="384" alt="Screenshot 2026-07-11 at 2 49 52 PM" src="https://github.com/user-attachments/assets/929fe87c-bef1-46e1-8377-df6c61b08071" />
+
+Here is another example of our results that we got: 
+<img width="1010" height="406" alt="Screenshot 2026-07-11 at 2 55 28 PM" src="https://github.com/user-attachments/assets/3b3b312a-da52-4fd6-a537-97517c0962ba" />
+
 
 ## G. Insights
-Highlight any key insights gained from the project.
+We started with 136,621 raw real estate records. After cleaning the data, we had 103,284 valid transactions for analysis. Our dataset covers all 62 counties in New York State. Using this cleaned data, we calculated county price statistics, created a property price-density map, and built an interactive dashboard where selecting a county updates all the visualizations.
 
-- Provide an overview of what was learned or discovered through data analysis.
-- Example:
-  - High correlation between customer satisfaction and response time.
-  - Significant opportunity for cost reduction in supply chain operations.
 
 ## H. Conclusion
-Summarize the outcomes of the project and any potential next steps.
-
-- What was achieved?
-- How can the results be used moving forward?
-- Example:
-  - The project successfully reduced costs by 20% through process automation.
-  - Future work may include expanding the solution to new departments.
+ In conclusion our data warehouse will help home buyers better estimate how much they may be able to negotiate and by their dream homes, as well as helping sellers can see how close homes in their county can typically sell to the asking prices giving them ideas for their prices they can set, and it shows how there are over priced some counties are and are harder to negotiate with. It will also give fast stats of median, average, minimum, max sold/listed by counties. It also has easy access and interactive showing data of all 62 counties. We hope to incorporate more features such as putting in the crime rates of neighborhoods so that buyers are able to incorporate that into their decisions as well as seeing how expensive living in certain places could be.
 
 ## I. References
 - Provide a list of all references used in the project, formatted according to MLA style.
