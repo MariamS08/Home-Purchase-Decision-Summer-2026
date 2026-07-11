@@ -12,20 +12,21 @@ Well, we present to you our project and will show you the process of building it
 
 ### 1. Requirements Analysis
 - Business Personas
-  - List the key stakeholders and their roles.
-  - Example:
-    - Data Analyst: Responsible for data analysis and reporting.
-    - IT Manager: Oversees technical implementation.
-- Risks
-  - Identify potential risks and challenges.
-  - Example:
-    - Data privacy concerns
-    - Integration with existing systems
-- Costs
-  - Estimate the costs associated with the project.
-  - Example:
-    - Software licenses: $X
-    - Hardware upgrades: $Y
+Primary stakeholders: potential homebuyers, real estate professionals, data analysts and data scientists, project manager/product owner.
+ 
+Secondary stakeholders: urban planners and local government officials, real estate investors, mortgage lenders and financial institutions, data providers
+
+Data Analyst/ team: designs architecture models and dimensional model, builds ETL pipeline, and load to the data warehouse 
+
+ Risks
+ - Inputting all the data and having access to it, making sure everything work and doesn’t delay the ETL development
+ - Checking and requiring null checking 
+
+Costs
+- Cloud storage and data warehouse: were minimal cost and used student credits such as azure, google collab, db schema and snowflake 
+- Power BI was free 
+- Time from both team members 
+
 - Timeline
   - Provide a high-level timeline for the project.
   - Example:
@@ -66,8 +67,8 @@ The information architecture is like the blueprint of the structure, it describe
 
 ### 2. Data Architecture
 - Describe the structure and flow of the data: sources, ingestion, storage, transformation, and serving layers.
-- Include diagrams or images if necessary. 
-  - ![Data Architecture Diagram](path_to_image)
+<img width="676" height="207" alt="Screenshot 2026-07-11 at 4 24 42 PM" src="https://github.com/user-attachments/assets/40a87b6d-4e0f-46d6-b348-3b513b7d0f2e" />
+
 
 #### Medallion Architecture (if applicable)
 - If your solution uses a data lake or lakehouse (e.g., Delta Lake, Databricks, Microsoft Fabric, Snowflake), describe how data moves through the medallion layers. Omit this part if it does not apply to your architecture.
