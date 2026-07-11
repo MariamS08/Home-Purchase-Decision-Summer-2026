@@ -58,9 +58,10 @@ Provide a brief description of the problem you're addressing. Include any backgr
 ## C. Architecture
 
 ### 1. Information Architecture
-- Describe the structure and flow of the information.
-- Include diagrams or images if necessary. 
-  - ![Information Architecture Diagram](path_to_image)
+The information architecture is like the blueprint of the structure, it describes how home purchases data goes through the system. This structure shows the flow of the housing data, active listings, and the sales which were extracted by HomeHarvest which is what will mainly be focused on the rest of it, and as seen which is still work in progress there will be implementations of Spot crime in the future. The files mentioned were gathered, reformatted, cleaned, Transformed, consolidated, loaded and put into the data warehouse. 
+
+  - <img width="954" height="479" alt="Screenshot 2026-07-03 at 9 58 06 AM" src="https://github.com/user-attachments/assets/b93f75a2-ca3c-4ee3-94f4-7307e501500f" />
+
 
 ### 2. Data Architecture
 - Describe the structure and flow of the data: sources, ingestion, storage, transformation, and serving layers.
@@ -90,22 +91,32 @@ Provide a brief description of the problem you're addressing. Include any backgr
 ## D. Modeling
 
 ### 1. Dimensional Modeling
-- Explain the dimensional modeling
-- Example:
-  - **Facts**: describe all the facts
-  - **Dimension**: include all dimensions
+This model was done with star schema, as you can see we have the Fact_home_purchases in the center and the rest of the dimensions location, date and property, showing how the list and sold homes transactions would work, basically comparing and contrasting sales in the counties. 
 
-*Include any necessary images or diagrams to clarify the architecture.*
-  - ![Dimensional Modeling Diagram](path_to_image)
+Fact table: 
+Fact_Home_Purchases: There is one row per listing/ sales, includes transaction_type, measures the list_price, Sold_price, Price_per_sqft, and days_on_Mls also adding the location_id, date_id, and property_id. 
+
+Dimensions: 
+Dim_Location:location_ id, location_name, county, zip_code, city, state, fips_code, latitude, and longitude 
+
+Dim_property: property_ id, Property_name, Bedrooms, full_baths, sqft, year_built, beds_category, and size-category 
+
+Dim_Date: date_key, full_date, year, quarter, month, month_name, day_of_week, weekend
+  
+  - <img width="963" height="597" alt="Screenshot 2026-07-10 at 8 01 50 PM" src="https://github.com/user-attachments/assets/f1a300e6-c602-451a-a7b5-9c229f3e5dc9" />
+
 
 ## E. Methodology and Implementation
-Describe the methodology used in the project and the steps followed during implementation.
+We took an agile approach and here is the process of doing it: 
+Sprint 1: Setup and Data Collection We started with meeting with the stakeholders and gathering the requirements, the risks, costs, and benefits, and setting up the platforms we were going to use to complete it such as db schema, draw io, snowflake, google colab, and azure as well as building the architecture design. 
 
-- Outline the approach taken (e.g., Agile, Waterfall).
-- Describe key phases, such as development, testing, deployment.
-- Example:
-  - Sprint 1: Setup and Data Collection
-  - Sprint 2: Data Processing and Model Building
+Sprint 2: Data Processing and Model Building The data was processed and the dimensional model was built showing 3 dimensions location, property, and date, we defined grain and the primary keys making sure everything was working. 
+
+Sprint 3: ETL was developed, ingested, clean, and loaded in all the data and also homeharvest. 
+
+Sprint 4: The Power Bi dashboard was built and the county filter. 
+
+  - 
 - Metadata Management
   - Data Dictionary
   - Mapping Sources and Target Systems
