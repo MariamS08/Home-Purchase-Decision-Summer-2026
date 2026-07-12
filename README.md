@@ -64,29 +64,82 @@ The information architecture is like the blueprint of the structure, it describe
 
 
 ### 2. Data Architecture
-- Describe the structure and flow of the data: sources, ingestion, storage, transformation, and serving layers.
+The project uses a 3-layer medallion architecture. The source files are ingested as-is into the bronze layer, then cleaned and type-cast in the silver layer, and finally modeled into a gold layer star schema before being loaded into Snowflake.
+
 <img width="676" height="207" alt="Screenshot 2026-07-11 at 4 24 42 PM" src="https://github.com/user-attachments/assets/40a87b6d-4e0f-46d6-b348-3b513b7d0f2e" />
 
 
-#### Medallion Architecture (if applicable)
-- If your solution uses a data lake or lakehouse (e.g., Delta Lake, Databricks, Microsoft Fabric, Snowflake), describe how data moves through the medallion layers. Omit this part if it does not apply to your architecture.
-- Stages:
-  - **Bronze**: Raw, unprocessed data ingested directly from source systems.
-  - **Silver**: Cleaned, conformed, and enriched data.
-  - **Gold**: Aggregated, business-ready data for analytics and reporting.
-- Include a diagram if helpful.
+Medallion Architecture
+
+Bronze (raw landing zone)
+
+The for_sales.csv and sold.csv are landed unmodified. No fields are renamed, cast, or dropped at this stage.
+for_sale.csv: 69,493 rows and 38 columns
+sold.csv: 67,128 rows and 38 columns
+
+Silver (cleaned and conformed)
+
+Python (pandas) reads the bronze files, merges them with a transaction_type tag, and applies cleaning rules.
+Mergesfor_sale.csvv and sold.csv into 1 table, tagging each row with either listed or sold
+Standardize mls_status casing. Parse list_date, pending_date, last_sold_date as datetimes.
+Cast price, sqft, latitude/longitude columns to numeric. Coerce bad values to null.
+Drop rows missing property_id, county, or list_price (required keys).
+Standardize county names so all rows join consistently on county.
+Derive price_per_sqft, beds_category, and size_category for the dashboard. 
+Gold (star schema)
+The cleaned data is modeled into one fact table and three dimensions, ready to load into Snowflake and consume from Power BI.
   - ![Medallion Architecture Diagram](path_to_image)
 
-### 3. Technical Architecture
-- Define the software and hardware systems involved in the project.
-- List any key technologies, tools, or platforms used. 
-  - Example: 
-    - Python for data analysis
-    - Azure for cloud computing
+3. Technical Architecture
+The technical architecture defines the software and cloud services used at each layer. All storage and warehouse services are cloud-managed; pipeline code is developed locally, version-controlled in GitHub, and run on a schedule.e 
 
-### 4. Product Architecture
-- Provide an overview of the product's overall structure.
-- Include any major components and how they interact.
+Layer
+Tool / Technology
+Purpose
+Data Sources
+for_sales.csv, sold.csv, SpotCrime JSON, MIT Living Wage, HomeHarvest GitHub
+Housing listings, crime events, cost of living benchmarks
+Integration and cleaning
+Python (requests and pandas)
+Load CSVs and JSON, fix data types, handle nulls, write Silver Parquet 
+Geocoding (crime)
+GeoPandas / Google Maps Geocoding API
+Map SpotCrime lat/lon coordinates to NY county names for aggregation 
+Orchestration 
+Apache Airflow
+Automate Bronze → Silver → Gold → Warehouse pipeline runs 
+Storage / data lake
+Microsoft Azure or Google Cloud Storage
+Bronze (raw) and Silver (clean Parquet) medallion layers 
+Data Warehouse
+Snowflake / BigQuery
+Hosts the Gold star schema (fact and dimension tables) 
+Transformation
+SQL / DBT
+Builds Silver→Gold models, county aggregations, dim/fact tables 
+BI / visualization
+Microsoft Power BI
+County dashboard, NY price map, KPI cards, and linear regression visual 
+Version control
+Github
+Manages all ingestion scripts, dbt models, and SQL DDL 
+
+
+Hardware: No dedicated on-premises hardware is required. All storage, transformation, and BI services run on cloud infrastructure. A standard development machine is used to write and test pipeline code.
+
+
+4. Product Architecture
+The product is an end-to-end home-purchase decision support system made up of six major components:
+ 
+1. Ingestion Service: Python scripts that read for_sales.csv and sold.csv, pull the SpotCrime JSON, and load the manually compiled living wage CSV into the Bronze layer without modification.
+2. Data Lake: Google Cloud Storage bucket with three folders: /bronze (raw source files), /silver (cleaned Parquet), and /gold (aggregated Parquet county profiles).
+3. Transformation Layer: Python (Silver cleaning) and dbt/SQL (Gold aggregation) that standardize data types, geocode crime events to counties, and produce the four key Gold tables: county housing sold metrics, county housing listing metrics, county crime rates, and county living wage benchmarks.
+4. Data Warehouse: The Gold star schema loaded into BigQuery/Snowflake: two fact tables (fact_property_listings and fact_crime) joined to shared dimensions (dim_date, dim_location, dim_property) plus lookup dimensions for living wage and crime type.
+5. BI Layer: Power BI dashboards providing: (a) county-level sold and listing price stats (median/avg/min/max), (b) NY State price density map, (c) linear regression scatter plot with trend line (sold price vs. annual living wage + crime rate), and (d) interactive county filter across all visuals.
+6. End Users: Prospective home buyers and real estate analysts who explore the dashboard to compare NY counties across price, cost of living, and crime.
+ 
+Data flows in one direction: Source Files → Ingestion → Bronze → Silver Cleaning → Gold Aggregation → Data Warehouse → Power BI → Users.
+
 
 ## D. Modeling
 
