@@ -27,17 +27,14 @@ Costs
 - Power BI was free 
 - Time from both team members 
 
-- Timeline
-  - Provide a high-level timeline for the project.
-  - Example:
-    - Phase 1: Requirements Gathering (Month 1)
-    - Phase 2: Development (Months 2-4)
-    - Phase 3: Testing and Deployment (Month 5)
-- Benefits
-  - Outline the expected benefits of the project.
-  - Example:
-    - Improved data accuracy
-    - Enhanced decision-making capabilities
+  Timeline
+1st week- Gathered the requirements needed, cost, benefit, risks, and architecture 
+2nd week- data modeling
+3rd- data pipeline started
+4th- visualization being done  
+
+ Benefits 
+ Benefits it has is that possible home buyers are able to see data, giving them prices of homes in counties of NYC; it also includes the affordability of their surroundings, making it easier to make a decision when getting a home. The business personas won’t have to go through multiple platforms or scams to find a home.
 
 ### 2. Business Requirements
 - List the high-level business goals and objectives the project aims to achieve.
@@ -142,12 +139,6 @@ We started with 136,621 raw real estate records. After cleaning the data, we had
  In conclusion our data warehouse will help home buyers better estimate how much they may be able to negotiate and by their dream homes, as well as helping sellers can see how close homes in their county can typically sell to the asking prices giving them ideas for their prices they can set, and it shows how there are over priced some counties are and are harder to negotiate with. It will also give fast stats of median, average, minimum, max sold/listed by counties. It also has easy access and interactive showing data of all 62 counties. We hope to incorporate more features such as putting in the crime rates of neighborhoods so that buyers are able to incorporate that into their decisions as well as seeing how expensive living in certain places could be.
 
 ## I. References
-- Provide a list of all references used in the project, formatted according to MLA style.
+HomeHarvest. GitHub Repository, Zachary Hampton, 2024, github.com/ZacharyHampton/HomeHarvest.
+for_sales.csv and sold.csv. - Provided by Prof. Jefferson Bien Aimé, CIS 4400
 
-1. Author Last Name, First Name. *Title of Book*. Publisher, Year.
-2. "Title of Article." *Name of Journal*, vol. 1, no. 1, Year, pp. 1-10.
-3. *Title of Website*. Website Publisher, Year, URL.
-
----
-
-*Replace placeholders like "path_to_image" with actual file paths or URLs.*
