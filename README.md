@@ -34,7 +34,8 @@ Costs
 4th- visualization being done  
 
  Benefits 
- Benefits it has is that possible home buyers are able to see data, giving them prices of homes in counties of NYC; it also includes the affordability of their surroundings, making it easier to make a decision when getting a home. The business personas won’t have to go through multiple platforms or scams to find a home.
+ 
+Benefits it has is that possible home buyers are able to see data, giving them prices of homes in counties of NYC; it also includes the affordability of their surroundings, making it easier to make a decision when getting a home. The business personas won’t have to go through multiple platforms or scams to find a home.
 
 ### 2. Business Requirements
 - List the high-level business goals and objectives the project aims to achieve.
