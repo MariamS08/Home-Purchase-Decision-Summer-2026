@@ -88,7 +88,7 @@ Standardize county names so all rows join consistently on county.
 Derive price_per_sqft, beds_category, and size_category for the dashboard. 
 Gold (star schema)
 The cleaned data is modeled into one fact table and three dimensions, ready to load into Snowflake and consume from Power BI.
-  - ![Medallion Architecture Diagram](path_to_image)
+
 
 3. Technical Architecture
 The technical architecture defines the software and cloud services used at each layer. All storage and warehouse services are cloud-managed; pipeline code is developed locally, version-controlled in GitHub, and run on a schedule.e 
